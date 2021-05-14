@@ -17,7 +17,7 @@ type User struct {
 }
 
 //结构体转JSON
-func structToJSON() {
+func structToJSON() string {
 
 	user := User{
 		UserName: "itbsl",
@@ -32,14 +32,29 @@ func structToJSON() {
 
 	if err != nil {
 		fmt.Println("json.marshal failed, err:", err)
-		return
+		return ""
 	}
 
-	fmt.Printf("%s\n", string(data))
+	return string(data)
+}
+
+//json转结构体
+func JSONToStruct(str string) {
+
+	var user User
+
+	err := json.Unmarshal([]byte(str), &user)
+
+	if err != nil {
+
+		panic(err)
+	}
+
+	fmt.Println(user)
+
 }
 
 func main() {
 
-	structToJSON()
-
+	JSONToStruct(structToJSON())
 }
